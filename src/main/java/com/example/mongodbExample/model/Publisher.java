@@ -1,6 +1,7 @@
 package com.example.mongodbExample.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -13,16 +14,15 @@ public class Publisher {
     private String id;
     private String name;
 
-    @DBRef
-    private List<Book> books;
+    @DBRef(lazy = true)
+    private List<Book> books = new ArrayList<>();
 
     public Publisher() {}
 
     public Publisher(String name, List<Book> books) {
         this.name = name;
-        this.books = books;
+        this.books = books != null ? books : new ArrayList<>();
     }
-
     // Getter ve Setter'lar
     public String getId() {
         return id;
